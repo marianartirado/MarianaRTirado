@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mariana Ramirez Tirado — Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Hind+Madurai:wght@400;600;700&family=Press+Start+2P&family=Akaya+Kanadaka&display=swap');
+
+  :root {
+    --bg: #f1f1f0;
+    --ink: #0a0a0a;
+    --purple: #5b2a86;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--ink);
+  }
+
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 64px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .name {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  nav a {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .headline {
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+  }
+
+  .line1 {
+    font-size: clamp(64px, 12vw, 170px);
+    height: clamp(64px, 12vw, 170px);
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  .word {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .word.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* word-specific styling */
+  #word-product {
+    color: #00968f;
+    font-family: 'Hind Madurai', 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+  }
+
+  #word-graphic {
+    color: #ff7fab;
+    font-family: 'Akaya Kanadaka', cursive;
+    font-weight: 400;
+  }
+
+  #word-ux {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55em;
+    color: #21b573;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  .line2 {
+    font-size: clamp(64px, 12vw, 170px);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .pill {
+    border: 2px solid var(--purple);
+    border-radius: 50%;
+    aspect-ratio: 1.9 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: clamp(20px, 2.6vw, 32px);
+    width: clamp(160px, 22vw, 300px);
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .pill:hover {
+    background: var(--purple);
+    color: var(--bg);
+  }
+
+  .pill:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 4px;
+  }
+
+  .resume-download:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .word { transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 28px 24px; }
+    footer { gap: 12px; }
+  }
+
+  /* ---- About / Resume section ---- */
+  #about-section {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+  }
+
+  #about-section.open {
+    max-height: 6000px;
+  }
+
+  .about-inner {
+    padding-top: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+  }
+
+  .about-row {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .about-row h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: clamp(40px, 6vw, 72px);
+    letter-spacing: -0.01em;
+  }
+
+  .about-row p {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .resume-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .resume-block > h2 { align-self: flex-start; }
+
+  .resume-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .resume-card h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 6px;
+  }
+
+  .entry { margin-bottom: 18px; }
+
+  .entry .when {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--purple);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .entry .what {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .entry p {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #2b2b2b;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skills-list span {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    border: 1.5px solid var(--purple);
+    border-radius: 20px;
+    padding: 6px 14px;
+  }
+
+  .resume-download {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--bg);
+    background: var(--ink);
+    border-radius: 30px;
+    padding: 14px 32px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .resume-download:hover { background: var(--purple); }
+
+  @media (max-width: 800px) {
+    .about-row { grid-template-columns: 1fr; }
+    .resume-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Project catalog ---- */
+  #project-section {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+  }
+
+  #project-section.open {
+    max-height: 10000px;
+  }
+
+  .project-grid {
+    padding-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 140px;
+    gap: 24px;
+  }
+
+  .project-card {
+    border: 1.5px solid var(--ink);
+    border-radius: 24px;
+    background: var(--bg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  }
+
+  .project-card:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 4px;
+  }
+
+  .project-card .thumb {
+    flex: 1;
+    border-radius: 12px;
+    background: #e3e3e1;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 14px;
+  }
+
+  .project-card .label {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  /* mixed bento sizing, matches the wireframe rhythm */
+  .project-card.tall { grid-row: span 3; }
+  .project-card.wide { grid-column: span 2; grid-row: span 2; }
+  .project-card.big  { grid-column: span 2; grid-row: span 4; }
+  .project-card.med  { grid-row: span 2; }
+
+  @media (max-width: 900px) {
+    .project-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-card.big, .project-card.wide { grid-column: span 2; }
+  }
+
+  @media (max-width: 560px) {
+    .project-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .project-card, .project-card.tall, .project-card.wide, .project-card.big, .project-card.med {
+      grid-column: span 1;
+      grid-row: span 1;
+      min-height: 220px;
+    }
+  }
+
+  /* ---- Project detail ---- */
+  #project-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+  }
+
+  #project-detail.open {
+    max-height: 20000px;
+  }
+
+  .detail-inner {
+    padding-top: 48px;
+  }
+
+  .back-link {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--purple);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .detail-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 56px);
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .detail-meta {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--purple);
+    margin-bottom: 32px;
+  }
+
+  .detail-hero {
+    width: 100%;
+    border-radius: 20px;
+    background: #e3e3e1;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+
+  .detail-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .detail-body {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 40px;
+  }
+
+  .detail-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .detail-gallery div {
+    border-radius: 16px;
+    background: #e3e3e1;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+  }
+
+  .detail-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* ---- Locked-size case study image components ---- */
+  /* Drop an <img> in any of these wrappers — the box size never changes,
+     regardless of the source image's real dimensions. Always set alt text. */
+
+  .cs-img-wide {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #e3e3e1;
+    margin: 24px 0;
+  }
+
+  .cs-img-square {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #e3e3e1;
+  }
+
+  .cs-img-portrait {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #e3e3e1;
+  }
+
+  .cs-img-wide img,
+  .cs-img-square img,
+  .cs-img-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .cs-img-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .cs-img-row.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .cs-img-row.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .cs-img-caption {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 12px;
+    color: #888;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .cs-img-row,
+    .cs-img-row.cols-2,
+    .cs-img-row.cols-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .detail-gallery { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Rich case study sections ---- */
+  .cs-section {
+    margin-bottom: 56px;
+  }
+
+  .cs-label {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+
+  .cs-heading {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 32px);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .cs-text {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #2b2b2b;
+    max-width: 720px;
+  }
+
+  .cs-text + .cs-text { margin-top: 14px; }
+
+  .cs-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .cs-tag {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    border: 1.5px solid var(--purple);
+    border-radius: 20px;
+    padding: 5px 14px;
+    color: var(--purple);
+  }
+
+  .cs-divider {
+    border: none;
+    border-top: 1px solid #d4d4d2;
+    margin: 48px 0;
+  }
+
+  .cs-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .cs-stat {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .cs-stat .stat-label {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+    margin-bottom: 6px;
+  }
+
+  .cs-stat .stat-value {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--ink);
+  }
+
+  .cs-insights {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .cs-insight-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    border-left: 4px solid var(--purple);
+  }
+
+  .cs-insight-card .insight-theme {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .cs-insight-card .insight-desc {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #444;
+  }
+
+  .cs-quote {
+    border-left: 3px solid var(--purple);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: white;
+    border-radius: 0 12px 12px 0;
+  }
+
+  .cs-quote p {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .cs-figma-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--bg);
+    background: #1e1e1e;
+    border-radius: 30px;
+    padding: 14px 28px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: background 0.2s;
+  }
+
+  .cs-figma-btn:hover { background: var(--purple); }
+
+  .cs-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) {
+    .cs-overview-grid { grid-template-columns: 1fr 1fr; }
+    .cs-insights { grid-template-columns: 1fr; }
+    .cs-two-col { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Fixed-size photo slots (never shift layout when filled in) ---- */
+  .cs-img {
+    width: var(--w, 100%);
+    height: var(--h, 360px);
+    border-radius: 16px;
+    background-color: #e3e3e1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 20px 0;
+  }
+
+  .cs-img-row {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 2), 1fr);
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .cs-img-row .cs-img { margin: 0; }
+
+  .cs-img-caption {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #888;
+    margin-top: -12px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 700px) {
+    .cs-img-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <div class="name">MARIANA RAMIREZ TIRADO</div>
+    <nav><a href="#contact">contact</a></nav>
+  </header>
+
+  <main>
+    <div class="headline">
+      <div class="line1">
+        <span class="word active" id="word-product">Product</span>
+        <span class="word" id="word-graphic">Graphic</span>
+        <span class="word" id="word-ux">UX</span>
+      </div>
+      <div class="line2">DESIGNER</div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="pill" id="project-btn" role="button" tabindex="0" aria-expanded="false" aria-controls="project-section">Project</div>
+    <div class="pill" id="about-btn" role="button" tabindex="0" aria-expanded="false" aria-controls="about-section">About</div>
+  </footer>
+
+  <section id="project-section">
+    <div class="project-grid" id="project-grid"></div>
+  </section>
+
+  <section id="project-detail">
+    <div class="detail-inner" id="detail-inner"></div>
+  </section>
+
+  <section id="about-section">
+    <div class="about-inner">
+
+      <div class="about-row">
+        <h2>About</h2>
+        <p>Mariana Ramirez Tirado is a Graphic, UI &amp; UX designer based in Brisbane, QLD, currently completing a Master's in Interaction Design at the University of Queensland.</p>
+        <p>Her background spans branding, editorial and packaging design, digital illustration, and UX research, built across roles in Mexico and Australia, from senior design positions at agencies to hands-on internships in user testing and product design.</p>
+        <p>She's fluent in English and Spanish, comfortable in Portuguese, and works confidently across the Adobe Suite, Microsoft Office, and core UX methods including user research, wireframing, and journey mapping.</p>
+      </div>
+
+      <div class="resume-block">
+        <h2>resume</h2>
+
+        <div class="resume-grid">
+          <div class="resume-card">
+            <h3>Education</h3>
+            <div class="entry">
+              <span class="when">June 2026</span>
+              <span class="what">Master Degree in Interaction Design</span>
+              <p>The University of Queensland</p>
+            </div>
+            <div class="entry">
+              <span class="when">April 2024</span>
+              <span class="what">Diploma of User Experience Design</span>
+              <p>Australian Pacific College</p>
+            </div>
+            <div class="entry">
+              <span class="when">April 2023</span>
+              <span class="what">Certificate IV in Marketing and Communication</span>
+              <p>Australian Pacific College</p>
+            </div>
+            <div class="entry">
+              <span class="when">December 2019</span>
+              <span class="what">Bachelor Degree in Design</span>
+              <p>Western Institute of Technology and Higher Education. Includes a semester abroad in Information Design at FH Joanneum, Graz, Austria (2018), and a year abroad at Maple Valley High School, Nashville, USA.</p>
+            </div>
+          </div>
+
+          <div class="resume-card">
+            <h3>Experience</h3>
+            <div class="entry">
+              <span class="when">Feb 2024 – May 2024</span>
+              <span class="what">Receptionist, International Student Australia</span>
+              <p>Built strong written and verbal communication, customer service, multitasking, and Microsoft Word, Excel and Power BI skills across daily business operations.</p>
+            </div>
+            <div class="entry">
+              <span class="when">Feb 2024 – Apr 2024</span>
+              <span class="what">UX Designer, International Student Australia</span>
+              <p>Completed a UX internship through APC College, leading user testing as team chief and creating questionnaires for task testing protocols.</p>
+            </div>
+            <div class="entry">
+              <span class="when">May 2022 – Feb 2024</span>
+              <span class="what">Kitchen Hand, La Patrona Mexican Cuisine</span>
+              <p>Supported front-of-house service for 70–130 nightly patrons, building adaptability, teamwork and high-pressure time management.</p>
+            </div>
+            <div class="entry">
+              <span class="when">Feb 2023 – May 2023</span>
+              <span class="what">Designer, ProjectBase, Australian Pacific College</span>
+              <p>Led a brand refresh for an industry client across web and social media, presenting final deliverables with a content calendar and recommendations.</p>
+            </div>
+            <div class="entry">
+              <span class="when">Dec 2020 – Feb 2022</span>
+              <span class="what">Senior Designer, Promogator Mexico, Guadalajara</span>
+              <p>Worked across digital asset management, 2D animation and editorial, web, textile and packaging design, leading a design team alongside Promogator's US office.</p>
+            </div>
+            <div class="entry">
+              <span class="when">Oct 2019 – Dec 2020</span>
+              <span class="what">Graphic Designer, DIEFER Marketing Agency, Guadalajara</span>
+              <p>Partnered with marketing teams on branding, Instagram content calendars, and visual assets for client campaigns.</p>
+            </div>
+            <div class="entry">
+              <span class="when">Feb 2018 – Jul 2018</span>
+              <span class="what">Graphic Designer, EuroSPI, Graz, Austria</span>
+              <p>Joined a multidisciplinary internship team building graphics, a VR application, and marketing materials for EuroSPI Balkan 2018.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-grid">
+          <div class="resume-card">
+            <h3>Skills</h3>
+            <div class="skills-list">
+              <span>Illustrator</span>
+              <span>InDesign</span>
+              <span>Photoshop</span>
+              <span>Premiere</span>
+              <span>Lightroom</span>
+              <span>XD</span>
+              <span>Dreamweaver</span>
+              <span>Word / Excel / PowerPoint</span>
+              <span>User research</span>
+              <span>Wireframing</span>
+              <span>Journey mapping</span>
+              <span>English (fluent)</span>
+              <span>Spanish (fluent)</span>
+              <span>Portuguese (medium)</span>
+              <span>German (basic)</span>
+              <span>Community management</span>
+              <span>Brand strategy</span>
+            </div>
+          </div>
+
+          <div class="resume-card">
+            <h3>Reference</h3>
+            <div class="entry">
+              <span class="what">Nelson Moncayo</span>
+              <p>nmoncayo@apc.edu.au</p>
+            </div>
+            <div class="entry">
+              <span class="what">Rebecca Flores — La Patrona Mexican Cuisine</span>
+              <p>+61 438 379 514 · rebeca@lapatronabrisbane.com.au</p>
+            </div>
+            <div class="entry">
+              <span class="what">Diego Vicuña — Promogator Mexico</span>
+              <p>(55) 6447 3104 · diego@promogator.com</p>
+            </div>
+            <div class="entry">
+              <span class="what">Diego Del Angel — Diefer</span>
+              <p>(33) 3822 3146 · lddelangel@gmail.com</p>
+            </div>
+            <div class="entry">
+              <span class="what">Richard Messnarz — EuroSPI</span>
+              <p>rmess@iscn.com</p>
+            </div>
+          </div>
+        </div>
+
+        <a class="resume-download" href="./assets/CV_Mariana_Ramirez_Tirado.pdf" target="_blank" rel="noopener">Download full résumé (PDF)</a>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+  const words = ['word-product', 'word-graphic', 'word-ux'];
+  let current = 0;
+
+  function cycle() {
+    const prevEl = document.getElementById(words[current]);
+    current = (current + 1) % words.length;
+    const nextEl = document.getElementById(words[current]);
+
+    prevEl.classList.remove('active');
+    nextEl.classList.add('active');
+  }
+
+  setInterval(cycle, 3000);
+
+  // ==========================================================================
+  // PROJECT DATA — IMAGE GUIDE
+  // ==========================================================================
+  // Every project below has exactly ONE thing left to do: add real images.
+  // Adding images will NEVER break the layout — every image slot uses
+  // background-size: cover, so any photo you drop in is automatically
+  // cropped to fit. Just paste a URL (or a local path like "assets/foo.jpg")
+  // between the quotes. Leave it as '' to keep the placeholder grey box.
+  //
+  // COVER IMAGE (grid thumbnail) — recommended sizes by card "size":
+  //   size: 'big'  → cover should be ~1200×1000px (tall, prominent)
+  //   size: 'wide' → cover should be ~1200×600px  (landscape)
+  //   size: 'tall' → cover should be ~800×1000px  (portrait)
+  //   size: 'med'  → cover should be ~800×600px   (landscape)
+  //   These are recommendations only — cover crops automatically either way.
+  //
+  // INLINE IMAGES (inside richContent case studies) — search each project
+  // for "PHOTO SLOT" comments inside the content template. Each one is a
+  // fixed-size <img> container, e.g.:
+  //     <div class="cs-img" style="--w:100%;--h:420px;
+  //          background-image:url('PASTE_URL_HERE')"></div>
+  //   Just paste the URL inside url('...') — the box size (--h) is locked,
+  //   so the page layout never shifts no matter what image you add.
+  //   Recommended source image size: at least 1600px wide, landscape or
+  //   square works best for these slots.
+  // ==========================================================================
+
+  const projects = [
+    {
+      id: 'medfile',
+      title: 'MedFile — Digital Health Records App',
+      type: 'UX Research · Interaction Design · Capstone',
+      size: 'big', // cover recommended ~1200x1000px
+      cover: './Imgs/Medfile_cover.png',
+      richContent: true,
+      content: `
+        <div class="cs-section">
+          <div class="cs-label">Overview</div>
+          <div class="cs-tags">
+            <span class="cs-tag">UX Research</span>
+            <span class="cs-tag">Focus Group</span>
+            <span class="cs-tag">Stakeholder Analysis</span>
+            <span class="cs-tag">Interaction Design</span>
+            <span class="cs-tag">Prototyping</span>
+            <span class="cs-tag">Digital Health</span>
+            <span class="cs-tag">DECO3800 · UQ · 2026</span>
+          </div>
+          <div class="cs-overview-grid" style="margin-top:28px">
+            <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">UX Researcher & Designer</div></div>
+            <div class="cs-stat"><div class="stat-label">Team</div><div class="stat-value">6 people — Design, Marketing, Engineering</div></div>
+            <div class="cs-stat"><div class="stat-label">Context</div><div class="stat-value">UQ Capstone · Semester 1, 2026</div></div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">The Problem</div>
+          <div class="cs-heading">Australia's prescription management system has critical gaps</div>
+          <p class="cs-text">Australia's Medicare app surfaces health data, but it doesn't actively help patients or clinicians act on it safely. Prescriptions from multiple providers are siloed, there's no real-time visibility of a patient's full medication history, and the app's interface creates barriers for users with low digital literacy.</p>
+          <p class="cs-text">Our team set out to understand those gaps — through real research, not assumptions — and propose a redesign focused on medication safety, clearer information architecture, and patient-centred interaction.</p>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">My Contribution — Research</div>
+          <div class="cs-heading">Stakeholder analysis, literature review & focus group with 8 participants</div>
+          <p class="cs-text">My background in the Introduction to Digital Health course made me the team's bridge to Australia's health system — I led the stakeholder mapping and research direction, and ran the focus group that drove our design decisions.</p>
+
+          <div class="cs-two-col" style="margin-top:28px">
+            <div>
+              <div class="cs-label" style="margin-bottom:8px">Stakeholders mapped</div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2;padding-left:18px;color:#2b2b2b">
+                <li>Patients (complex medication needs, low digital literacy, privacy concerns)</li>
+                <li>Pharmacists (last point of contact before dispensing)</li>
+                <li>GPs & Specialists (risk of unknowingly enabling doctor shopping)</li>
+                <li>Australian Digital Health Agency / Medicare / TGA</li>
+                <li>Emergency Departments</li>
+                <li>Researchers (anonymised data access)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="cs-label" style="margin-bottom:8px">Literature reviewed</div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2;padding-left:18px;color:#2b2b2b">
+                <li>London Ambulance Service CAD failure (1992)</li>
+                <li>Therac-25 radiation therapy system case study</li>
+                <li><em>How Bad UX Killed Jenny</em> — Tragic Design</li>
+                <li>VA EHR system rollout failure (11,000 missed clinical orders)</li>
+                <li>Mobile health app store UX research (SAGE Journals)</li>
+                <li>NNGroup — Medical Usability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- PHOTO SLOT: stakeholder mind map / Miro board screenshot -->
+        <div class="cs-img" style="--h:420px; background-image:url('./Imgs/Miro_data.png')"></div>
+        <div class="cs-img-caption">Stakeholder mind map (replace with your Miro board screenshot)</div>
+
+        <div class="cs-section">
+          <div class="cs-label">Focus Group</div>
+          <div class="cs-heading">8 participants · 36 screens · 20 minutes each</div>
+          <p class="cs-text">Unable to access Medicare directly, we worked with screenshots of the live app. Each participant had 20 minutes to review all 36 screens and leave feedback on what they'd change. Using international students as participants allowed us to minimise bias around familiarity with Australian healthcare conventions.</p>
+
+          <div class="cs-quote">
+            <p>"Notifications setting looks like a newsletter add. I think it should give you some toggle setting to choose from, where to send a message, what kind of message and how urgent is the message."</p>
+          </div>
+          <div class="cs-quote">
+            <p>"In emergencies, healthcare staff may struggle to quickly identify critical medications or allergies. Add an emergency summary section that immediately shows: Allergies, high-risk medications, chronic conditions, emergency contacts."</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-label">Research Findings — 5 UX Themes</div>
+          <div class="cs-insights">
+            <div class="cs-insight-card">
+              <div class="insight-theme">🔴 Medication Safety (Highest Priority)</div>
+              <div class="insight-desc">No emergency summaries, no duplicate prescription detection, no proactive flagging of dangerous interactions. The app shows data but doesn't help users act on it in time.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🟠 Navigation & Information Architecture</div>
+              <div class="insight-desc">No breadcrumbs, duplicate name display, and disconnected sections (prescriptions, dispensing, Medicare) with no visible relationship. Users feel lost.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🟡 Notifications Feel Like Marketing</div>
+              <div class="insight-desc">The notification settings pattern resembles a newsletter signup, not a clinical tool. Users expect granular toggles — urgency, type, channel — not a generic opt-in.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🔵 Accessibility Gaps</div>
+              <div class="insight-desc">Unlabelled icons, no close affordance on dropdowns, and external redirects for settings create blockers especially for users with low digital literacy.</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">My Contribution — Design</div>
+          <div class="cs-heading">Sketches, UX flow & mid-fi prototype</div>
+          <p class="cs-text">Drawing on my Digital Health coursework and the focus group findings, I led the visual and interaction design work for our team. I produced initial sketches to align the team on a shared direction, mapped the UX flow, and contributed to the final mid-fi prototype screens.</p>
+          <p class="cs-text">Our design proposal focused on: a unified medication management area combining prescriptions, dispensing history and Medicare claims; an emergency summary card surfacing allergies, high-risk meds and emergency contacts immediately; and redesigned notification settings with clinical-grade toggle controls.</p>
+
+          <!-- PHOTO SLOTS: sketches + mid-fi prototype screens, 2-up row -->
+          <div class="cs-img-row" style="--cols:2">
+            <div class="cs-img" style="--h:320px; background-image:url('./Imgs/Medfile.jpg')"></div>
+            <div class="cs-img" style="--h:320px; background-image:url('./Imgs/1580px-Medlife_sketch1.png')"></div>
+          </div>
+          <div class="cs-img-caption">Left: early sketches · Right: mid-fi prototype screens</div>
+
+          <a class="cs-figma-btn" href="https://www.figma.com/proto/VmkEq819RJ5QmEJKD6ZqzJ/Deco7380?node-id=0-1&t=OSf61ihcxlmL85em-1" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5Z" fill="#1ABCFE"/><path d="M9.5 57A9.5 9.5 0 0 1 9.5 38H19V57Z" fill="#0ACF83"/><path d="M0 19A9.5 9.5 0 0 1 9.5 9.5H19V28.5H9.5A9.5 9.5 0 0 1 0 19Z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 1 9.5 0H19V19H9.5A9.5 9.5 0 0 1 0 9.5Z" fill="#F24E1E"/><path d="M19 0H28.5A9.5 9.5 0 0 1 28.5 19H19Z" fill="#FF7262"/></svg>
+            View prototype in Figma
+          </a>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Exhibition</div>
+          <div class="cs-heading">2 posters · storyboards · lo-fi prototype</div>
+          <p class="cs-text">For the final UQ exhibition, the team delivered two posters presenting the problem, proposed solution, and app concept; a series of storyboards showing real user scenarios across different use cases; and a lo-fi prototype demonstrating the key user flows. I led the poster design and storyboard production.</p>
+
+          <!-- PHOTO SLOTS: exhibition posters + storyboards, 2-up row -->
+          <div class="cs-img-row" style="--cols:2">
+            <div class="cs-img" style="--h:380px; background-image:url('./Imgs/Poster_2.png')"></div>
+            <div class="cs-img" style="--h:380px; background-image:url('./Imgs/Medlife_storyboard.png')"></div>
+          </div>
+          <div class="cs-img-caption">Left: exhibition poster · Right: storyboard panel</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Reflection</div>
+          <div class="cs-heading">What I learned</div>
+          <p class="cs-text">This project changed how I think about UX stakes. Designing for health means that information architecture and interaction patterns aren't just usability issues — they're safety issues. The literature review made that visceral: bad UX in clinical tools has killed people.</p>
+          <p class="cs-text">Working in a cross-disciplinary team with engineering and marketing students also pushed me to communicate design decisions in terms of user needs and system constraints, not just visual rationale. And leading the focus group gave me hands-on experience planning and facilitating research with real participants, synthesising findings into actionable design themes, and translating those into concrete design proposals.</p>
+          <p class="cs-text">If I were to continue this project, I'd prioritise usability testing on the prototype with actual Medicare users — particularly elderly patients and those managing complex medication regimens — before making any further design decisions.</p>
+        </div>
+      `
+    },
+    {
+      id: 'mazerunner',
+      title: 'Keep It Rollin\' — MazeRunner',
+      type: 'Interaction Design · Physical Computing · DECO7385 · UQ 2026',
+      size: 'wide', // cover recommended ~1200x600px
+      cover: './Imgs/exhibition3.jpg',
+      richContent: true,
+      content: `
+        <div class="cs-section">
+          <div class="cs-label">Overview</div>
+          <div class="cs-tags">
+            <span class="cs-tag">Physical Computing</span>
+            <span class="cs-tag">Embodied Interaction</span>
+            <span class="cs-tag">Cross-disciplinary Team</span>
+            <span class="cs-tag">Iterative Design</span>
+            <span class="cs-tag">Exhibition</span>
+            <span class="cs-tag">DECO7385 · UQ · 2026</span>
+          </div>
+          <div class="cs-overview-grid" style="margin-top:28px">
+            <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">Interaction Designer</div></div>
+            <div class="cs-stat"><div class="stat-label">Team</div><div class="stat-value">Mixed — Design & Engineering</div></div>
+            <div class="cs-stat"><div class="stat-label">Context</div><div class="stat-value">UQ Physical Computing Studio · 2026</div></div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">The Concept</div>
+          <div class="cs-heading">A maze you play by holding hands</div>
+          <p class="cs-text">Keep It Rollin' is a cooperative physical game where two players must hold hands to complete an electrical circuit — only when they're connected can they tilt a wooden maze board together and guide a metal ball to the goal. Letting go breaks the circuit and stops the board.</p>
+          <p class="cs-text">The interaction design challenge was to create something social, approachable, and genuinely difficult to win — without any screens, menus, or onboarding text. The entire UX is communicated through the physical object and the mechanics of play.</p>
+
+          <!-- PHOTO SLOT: the physical maze board itself -->
+          <div class="cs-img" style="--h:420px; background-image:url('./Imgs/Screenshot 2026-04-09 at 7.04.17 PM.png')"></div>
+          <div class="cs-img-caption">The Keep It Rollin' maze board</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">My Contribution</div>
+          <div class="cs-heading">Interaction concept, visual identity & exhibition design</div>
+          <p class="cs-text">Working in a cross-disciplinary team with engineers, I was responsible for the interaction concept and the experience layer — how the game feels to play, how players understand what to do without instruction, and how it's presented in an exhibition context.</p>
+          <p class="cs-text">I also designed the visual identity and physical presentation of the project, including signage, the exhibition booth layout, and the pixel-art themed case study documentation.</p>
+
+          <!-- PHOTO SLOTS: exhibition booth + signage/branding, 2-up row -->
+          <div class="cs-img-row" style="--cols:2">
+            <div class="cs-img" style="--h:300px; background-image:url('./Imgs/Screenshot 2026-06-09 at 11.58.21 AM.png')"></div>
+            <div class="cs-img" style="--h:300px; background-image:url('./Imgs/Screenshot 2026-05-15 at 4.33.11 PM.png')"></div>
+          </div>
+          <div class="cs-img-caption">Left: exhibition booth · Right: signage / visual identity</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Design Process</div>
+          <div class="cs-heading">Iteration, adaptation & real constraints</div>
+          <p class="cs-text">The project went through several pivots driven by engineering constraints — features were adapted or redesigned when the physical build revealed new limitations. This is the reality of designing in a cross-disciplinary team, and navigating those constraints while keeping the core interaction intact was the central design challenge.</p>
+          <div class="cs-insights" style="margin-top:24px">
+            <div class="cs-insight-card">
+              <div class="insight-theme">✓ Body-as-controller</div>
+              <div class="insight-desc">The hand-holding mechanic makes the human connection literal — you physically cannot play alone. Zero onboarding required.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">✓ Vibration feedback</div>
+              <div class="insight-desc">Haptic feedback when the ball drops into a hole — reinforcing failure without a screen or sound.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">↻ Ball drop mechanism</div>
+              <div class="insight-desc">Original automatic ball-drop was adapted due to hardware constraints — design pivoted to maintain the gameplay loop.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">✓ Exhibition validated</div>
+              <div class="insight-desc">Visitors played cooperatively at the public exhibition — the social mechanic worked exactly as intended without any instruction.</div>
+            </div>
+          </div>
+
+          <!-- PHOTO SLOT: people playing the game at exhibition -->
+          <div class="cs-img" style="--h:400px; background-image:url('./Imgs/exhibition5.jpg')"></div>
+          <div class="cs-img-caption">Visitors playing Keep It Rollin' at the exhibition</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Full Case Study</div>
+          <div class="cs-heading">View the complete project documentation</div>
+          <p class="cs-text">The full case study includes process photos, feature breakdowns, exhibition footage, and the complete build story — presented in an interactive pixel-art format.</p>
+          <a class="cs-figma-btn" href="./keep it rolling/Keep_it_rollin.html" target="_blank" rel="noopener" style="margin-top:20px">
+            ★ Open full Keep it rollin' case study
+          </a>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Reflection</div>
+          <div class="cs-heading">What this taught me about UX</div>
+          <p class="cs-text">Physical computing forced me to think about interaction design without the safety net of UI conventions. There's no button to label, no tooltip to add. The design either communicates through the object and the mechanic, or it doesn't work at all.</p>
+          <p class="cs-text">Working with engineers also sharpened how I communicate design intent — I learned to separate "what the experience needs to feel like" from "how it gets built," and to negotiate between them when constraints arrive. That's the same skill that matters in any product team.</p>
+        </div>
+      `
+    },
+    {
+      id: 'wildtales',
+      title: 'WildTales — Children\'s Outdoor Adventure App',
+      type: 'UX / UI Design · Illustration · Character Design',
+      size: 'big', // cover recommended ~1200x1000px
+      cover: './Imgs/Wildtale_cover.png', // PASTE COVER IMAGE URL HERE — shows in the project grid tile
+      richContent: true,
+      content: `
+        <div class="cs-section">
+          <div class="cs-label">Overview</div>
+          <div class="cs-tags">
+            <span class="cs-tag">UX / UI Design</span>
+            <span class="cs-tag">Character Illustration</span>
+            <span class="cs-tag">Animation</span>
+            <span class="cs-tag">Children's App</span>
+            <span class="cs-tag">Gamification</span>
+            <span class="cs-tag">iOS · Swift · Figma</span>
+            <span class="cs-tag">Team of 6 · UQ 2025</span>
+          </div>
+          <div class="cs-overview-grid" style="margin-top:28px">
+            <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">UX Designer & Lead Illustrator</div></div>
+            <div class="cs-stat"><div class="stat-label">Team</div><div class="stat-value">3 Designers + 3 Developers</div></div>
+            <div class="cs-stat"><div class="stat-label">Delivered</div><div class="stat-value">Figma prototype + working iOS app</div></div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">The Problem</div>
+          <div class="cs-heading">Children are spending less time outdoors — and existing apps make it worse</div>
+          <p class="cs-text">Children aged 5–10 are spending less time in nature than any previous generation. The decline in outdoor play is linked to developmental issues including myopia, obesity, and reduced environmental awareness. But existing educational apps require constant internet connectivity and active input, making them inaccessible in remote outdoor environments and unsuitable for younger users.</p>
+          <p class="cs-text">Parents want to encourage outdoor play but struggle to balance supervision, device control, and genuinely engaging activities that don't just swap a screen for another screen.</p>
+
+          <div class="cs-quote">
+            <p>How can we design an outdoor adventure app that fosters parent-child interaction, motivates exploration, and uses phones to enhance engagement without creating digital dependency?</p>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Users</div>
+          <div class="cs-heading">Two users, one experience</div>
+          <div class="cs-insights">
+            <div class="cs-insight-card">
+              <div class="insight-theme">👧 Children (5–10)</div>
+              <div class="insight-desc">Find it hard to stay motivated outdoors. Prefer indoor screens. Need immediate rewards, simple gestures, big touch targets, and a compelling character to follow.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">👨‍👧 Parents / Guardians</div>
+              <div class="insight-desc">Worried about health impacts of indoor screen time. Want to encourage outdoor play while maintaining supervision. Need parental controls, safe zones, and activity visibility.</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Competitor Analysis</div>
+          <div class="cs-heading">What existed — and what was missing</div>
+          <div class="cs-insights">
+            <div class="cs-insight-card">
+              <div class="insight-theme">Seek by iNaturalist</div>
+              <div class="insight-desc">AI plant/animal identification. Powerful but complex — not designed for young children or offline use.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Earth Rangers</div>
+              <div class="insight-desc">Environmental education focus. Good values but passive content, no geolocation adventure mechanics.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Persil Wild Explorers</div>
+              <div class="insight-desc">Gamified outdoor activities. Closest to WildTales, but no narrative character, no offline capability, no parent controls.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">WildTales gap</div>
+              <div class="insight-desc">Joint parent-child engagement + narrative mascot + offline-first + user-generated scrapbook + safety controls. No single competitor addressed all of these together.</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">My Contribution — Character Design & Illustration</div>
+          <div class="cs-heading">Quinn the Quokka — mascot, guide, and emotional anchor</div>
+          <p class="cs-text">I was responsible for all illustration work in the app: the main character Quinn, supporting character expressions and outfits, background environments, app icons, and UI illustration elements throughout the interface. I also produced the character animation sequences used in the narrative onboarding.</p>
+          <p class="cs-text">Quinn is a young quokka from Rottnest Island who has never left home — and has no idea how to survive on the mainland. Children become his guides, helping him explore Brisbane's parks and natural areas. The narrative hook means children have a reason to go outside that isn't just "go outside."</p>
+          <div class="cs-insights" style="margin-top:24px">
+            <div class="cs-insight-card">
+              <div class="insight-theme">🎨 Character system</div>
+              <div class="insight-desc">6 emotion states (happy, sad, surprised, scared, love, wink) + 6 team mascots with distinct personalities designed to represent each team member.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🌿 Environment illustration</div>
+              <div class="insight-desc">Brisbane outdoor backgrounds, animated narrative scenes, and app splash screens in a warm earthy palette (Evergreen · Red-Orange · Hunter Green).</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">📱 UI illustration</div>
+              <div class="insight-desc">All in-app icons, badge artwork, scrapbook Polaroid stickers, and map pin assets — illustrated to match Quinn's visual style throughout.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🎬 Animation</div>
+              <div class="insight-desc">Narrative sequence animations for onboarding — Quinn walks, talks, and reacts — produced as exportable assets for the development team.</div>
+            </div>
+          </div>
+
+          <!-- PHOTO SLOTS: Quinn character sheet + in-app screens, 2-up row -->
+          <div class="cs-img-row" style="--cols:2">
+            <div class="cs-img" style="--h:340px; background-image:url('./Imgs/Wildtale_quinn.png')"></div>
+            <div class="cs-img" style="--h:340px; background-image:url('Imgs/Wildtale_app1.png')"></div>
+          </div>
+          <div class="cs-img-caption">Left: Quinn character / emotion set · Right: in-app illustrated screens</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">My Contribution — UX Research</div>
+          <div class="cs-heading">Casual interviews, accessibility research & usability testing</div>
+          <p class="cs-text">I led the casual interview research in Sprint 2 — conducting conversations to understand what operating systems children use, what types of games they play, and whether they prefer online or offline experiences. This directly shaped our decision to make WildTales offline-first and prioritise iOS development in Swift.</p>
+          <p class="cs-text">I also defined the style guide and component library in Sprint 3, and in Sprint 4 I was assigned usability and accessibility testing (12 hours) — evaluating the UI against child-friendly interaction patterns: big touch targets, simple gestures, no unnecessary distractions, and intuitive navigation.</p>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Design Decisions</div>
+          <div class="cs-heading">Every decision justified by child interaction research</div>
+          <div class="cs-insights">
+            <div class="cs-insight-card">
+              <div class="insight-theme">No unnecessary distractions</div>
+              <div class="insight-desc">Clean screens, one action at a time. The mascot provides emotional context without cluttering the UI.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Simple navigation</div>
+              <div class="insight-desc">7-stage linear flow (Login → Narrative → Map → Explore → Badge → Scrapbook → Emergency). No dead ends, no hidden menus.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Big touch targets</div>
+              <div class="insight-desc">All interactive elements sized for small fingers. Buttons are large, well-spaced, and clearly labelled with both icon and text.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Simple gestures only</div>
+              <div class="insight-desc">Tap and swipe only — no pinch, no drag-and-drop, no complex multi-touch. Based on child motor skill research.</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Key Features</div>
+          <div class="cs-heading">7 user stages, offline-first, safety built in</div>
+          <div class="cs-two-col">
+            <div>
+              <div class="cs-label" style="margin-bottom:10px">App features</div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.2;padding-left:18px;color:#2b2b2b">
+                <li>Login / Sign-up (Google + iCloud)</li>
+                <li>Narrative onboarding with Quinn animation</li>
+                <li>Pre-set, Community, and custom maps (MapKit)</li>
+                <li>GPS-guided adventure with offline caching</li>
+                <li>Badge unlock on location reached</li>
+                <li>Photo scrapbook with editing tools</li>
+                <li>Emergency page — call parents / find parents / rescue</li>
+                <li>Parental safe zone with distance limit</li>
+                <li>Screen time nudges via Quinn</li>
+                <li>Flora & Fauna data via Atlas of Living Australia API</li>
+              </ul>
+            </div>
+            <div>
+              <div class="cs-label" style="margin-bottom:10px">Technical stack</div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.2;padding-left:18px;color:#2b2b2b">
+                <li>Designed in Figma</li>
+                <li>Developed in Swift / XCode (iOS 15+)</li>
+                <li>MapKit + CoreLocation (offline maps)</li>
+                <li>AVFoundation (audio + haptic feedback)</li>
+                <li>CoreHaptics (button feedback)</li>
+                <li>Atlas of Living Australia API</li>
+                <li>Tested on multiple physical iPhones</li>
+                <li>Delivered working online + offline</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Prototype</div>
+          <div class="cs-heading">Interactive Figma prototype — fully navigable</div>
+          <p class="cs-text">The prototype covers the full 7-stage user journey from login through to scrapbook, including the Quinn narrative sequence, map selection, adventure mode, badge unlock, and emergency page.</p>
+
+          <!-- PHOTO SLOT: prototype screen flow montage -->
+          <div class="cs-img" style="--h:380px; background-image:url('./Imgs/Wildtale_app2.png')"></div>
+          <div class="cs-img-caption">WildTales prototype — key screens</div>
+          <a class="cs-figma-btn" href="https://www.figma.com/proto/I8XcJMYIoQRqkixVydLlap/WildTales?page-id=2095:58&node-id=2095-124&viewport=-118,-194,0.12&t=6K3EAT3fFoJLHSZy-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=2146:356" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5Z" fill="#1ABCFE"/><path d="M9.5 57A9.5 9.5 0 0 1 9.5 38H19V57Z" fill="#0ACF83"/><path d="M0 19A9.5 9.5 0 0 1 9.5 9.5H19V28.5H9.5A9.5 9.5 0 0 1 0 19Z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 1 9.5 0H19V19H9.5A9.5 9.5 0 0 1 0 9.5Z" fill="#F24E1E"/><path d="M19 0H28.5A9.5 9.5 0 0 1 28.5 19H19Z" fill="#FF7262"/></svg>
+            Interact with the WildTales prototype
+          </a>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Reflection</div>
+          <div class="cs-heading">What designing for children taught me</div>
+          <p class="cs-text">Designing for ages 5–10 is one of the most unforgiving UX challenges — you can't rely on convention, literacy, or patience. Every affordance has to be obvious, every reward immediate, and every failure state gentle. Working with that constraint made me a sharper designer for all audiences.</p>
+          <p class="cs-text">The illustration work also deepened how I think about character as UX. Quinn isn't decoration — he's the onboarding, the motivation system, the feedback mechanism, and the safety cue. Designing him required thinking about emotional design in a very literal way: which expression does a child need to see when they unlock a badge versus when they've wandered outside the safe zone?</p>
+          <p class="cs-text">Working in a team split between design and engineering also required me to produce assets in formats developers could actually use — learning to communicate illustration specs, export formats, and animation timing to the Swift team was as much a design skill as drawing Quinn in the first place.</p>
+        </div>
+      `
+    },
+    {
+      id: 'sola',
+      title: 'SOLA — Solo Female Travelers Website',
+      type: 'UX / Web Design · Brand Identity · Information Architecture',
+      size: 'wide', // cover recommended ~1200x600px
+      cover: './Imgs/SOLA_cover.png', // PASTE COVER IMAGE URL HERE — shows in the project grid tile
+      richContent: true,
+      content: `
+        <div class="cs-section">
+          <div class="cs-label">Overview</div>
+          <div class="cs-tags">
+            <span class="cs-tag">UX Design</span>
+            <span class="cs-tag">Web Design</span>
+            <span class="cs-tag">Brand Identity</span>
+            <span class="cs-tag">Information Architecture</span>
+            <span class="cs-tag">User Persona</span>
+            <span class="cs-tag">User Journey</span>
+            <span class="cs-tag">Accessibility</span>
+            <span class="cs-tag">APC Diploma · 2024</span>
+          </div>
+          <div class="cs-overview-grid" style="margin-top:28px">
+            <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">Solo UX & Web Designer</div></div>
+            <div class="cs-stat"><div class="stat-label">Deliverable</div><div class="stat-value">Full website proposal + working prototype</div></div>
+            <div class="cs-stat"><div class="stat-label">Context</div><div class="stat-value">Assessment 3 · APC UX Diploma · 2024</div></div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">The Problem</div>
+          <div class="cs-heading">Solo female travelers need a dedicated resource — not a filtered version of generic travel sites</div>
+          <p class="cs-text">Women traveling alone face a unique set of needs: safety-specific destination information, community connection with other solo travelers, practical planning tools, and content that treats them as confident, independent travelers rather than a niche concern. Existing platforms like Hostelworld address booking but not the full journey from inspiration through preparation to community.</p>
+          <p class="cs-text">SOLA's mission: empower and inspire women to travel solo with confidence through reliable resources, community support, and practical advice.</p>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">User Research</div>
+          <div class="cs-heading">Persona: Emma Carter, 29 — Marketing Manager, Austin TX</div>
+          <p class="cs-text">Emma has experience with group and solo travel across Europe, South America and Asia. She uses apps for planning, booking and navigation, and is motivated by empowerment, personal growth and cultural immersion. Her key challenges are safety concerns in unfamiliar destinations, information overload across fragmented sources, and budget management.</p>
+          <div class="cs-insights" style="margin-top:20px">
+            <div class="cs-insight-card">
+              <div class="insight-theme">Goals</div>
+              <div class="insight-desc">Explore new destinations safely · Connect with a community of like-minded travelers · Plan efficiently without switching between 10 different apps and sites</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Pain points</div>
+              <div class="insight-desc">Safety information scattered or generic · Too much content with no female-specific filter · No single hub for destination + safety + community + planning</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-label">User Journey</div>
+          <div class="cs-heading">6-stage journey from discovery to feedback</div>
+          <div class="cs-two-col">
+            <div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.4;padding-left:18px;color:#2b2b2b">
+                <li><strong>Discovery</strong> — finds SOLA through an Instagram post</li>
+                <li><strong>Exploration</strong> — browses destination guides, safety tips, personal stories</li>
+                <li><strong>Planning</strong> — uses itinerary builder and budget calculator</li>
+              </ul>
+            </div>
+            <div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.4;padding-left:18px;color:#2b2b2b">
+                <li><strong>Community</strong> — joins newsletter, engages with travel diaries</li>
+                <li><strong>Travel</strong> — accesses safety tips and packing lists on the go</li>
+                <li><strong>Feedback</strong> — shares experience via community forum and social media</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Information Architecture</div>
+          <div class="cs-heading">6 sections, built from an affinity diagram</div>
+          <p class="cs-text">The site structure was derived from an affinity diagram that clustered user needs into logical groups. The result is a 6-section navigation: Destinations, Prepare, Community, Planning, Recommendations, and About Us — each with clear sub-pages and a consistent footer.</p>
+          <div class="cs-insights" style="margin-top:20px">
+            <div class="cs-insight-card">
+              <div class="insight-theme">🗺 Destinations</div>
+              <div class="insight-desc">Country/city profiles · Safety tips · Interactive map · Top 10 lists by region (America, Oceania, Europe, Africa, Asia)</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🧳 Prepare</div>
+              <div class="insight-desc">Customisable packing checklist · Excel template · Health precautions · Emergency contacts by country</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">👥 Community</div>
+              <div class="insight-desc">Travel diaries · Articles on solo travel · Community forum · Newsletter with New Friends / No Stress / New Places content pillars</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">📅 Planning</div>
+              <div class="insight-desc">AI-powered itinerary builder (enter destination, dates, budget, interests → receive personalised day-by-day plan) · Budget calculator</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">⭐ Recommendations</div>
+              <div class="insight-desc">User-submitted place recommendations · Product reviews · Local female-friendly businesses and support networks</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">ℹ️ About & Contact</div>
+              <div class="insight-desc">Mission statement · Team · Contact form · Newsletter signup · Social media links</div>
+            </div>
+          </div>
+
+          <!-- PHOTO SLOT: affinity diagram screenshot -->
+          <div class="cs-img" style="--h:380px; background-image:url('./Imgs/Sola_affinity diagram.png')"></div>
+          <div class="cs-img-caption">Affinity diagram — clustering user needs into site sections</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Brand Identity</div>
+          <div class="cs-heading">Warm, bold, empowering — designed for a diverse audience of women</div>
+          <div class="cs-two-col">
+            <div>
+              <div class="cs-label" style="margin-bottom:10px">Colour palette</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#FA003F;flex-shrink:0"></div>
+                  <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#2b2b2b"><strong>#FA003F</strong> — Dark pink · Compassion, warmth (primary brand)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#EE6123;flex-shrink:0"></div>
+                  <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#2b2b2b"><strong>#EE6123</strong> — Orange · Enthusiasm, adventure (buttons, CTAs)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#FFCF00;flex-shrink:0"></div>
+                  <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#2b2b2b"><strong>#FFCF00</strong> — Yellow · Optimism, energy (accents, highlights)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#009110;flex-shrink:0"></div>
+                  <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#2b2b2b"><strong>#00916E</strong> — Teal green · Safety, nature (community section)</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="width:36px;height:36px;border-radius:8px;background:#FEEFE5;border:1px solid #ddd;flex-shrink:0"></div>
+                  <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:#2b2b2b"><strong>#FEEFE5</strong> — Warm cream · Background, approachability</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="cs-label" style="margin-bottom:10px">Typography & tone</div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.2;padding-left:18px;color:#2b2b2b">
+                <li><strong>DM Sans</strong> — primary sans for UI and body copy</li>
+                <li><strong>IBM Plex Serif</strong> — editorial serif for headlines and personality</li>
+                <li>Tone: empowering, friendly, informative, inspiring</li>
+                <li>Logo: SOLA wordmark in bold condensed, 4 colour variants</li>
+                <li>Icons: minimalistic and modern with a feminine touch</li>
+                <li>Images: diverse women, authentic travel settings, aspirational</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">UX Decisions</div>
+          <div class="cs-heading">Accessibility and usability built into the brief</div>
+          <div class="cs-insights">
+            <div class="cs-insight-card">
+              <div class="insight-theme">Contrast & readability</div>
+              <div class="insight-desc">High contrast text/background combinations across all pages. Accessible font sizes maintained on mobile and desktop.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Responsive design</div>
+              <div class="insight-desc">Mobile-first approach — safety tips and planning tools accessible on the go, in-destination, without a desktop.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Keyboard navigation</div>
+              <div class="insight-desc">Full keyboard navigation support for users with motor disabilities. All interactive elements reachable without a mouse.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">Alt text & screen readers</div>
+              <div class="insight-desc">Descriptive alt text specified for all imagery. Content hierarchy uses semantic headings throughout.</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Working Pages Delivered</div>
+          <div class="cs-heading">5 fully designed and functional pages</div>
+          <div class="cs-two-col">
+            <div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.4;padding-left:18px;color:#2b2b2b">
+                <li><strong>Home</strong> — hero with brand statement, scrolling feature marquee (Safety + Community + Planning + New Places + Save Money + New Friends + No Stress), newsletter CTA, footer</li>
+                <li><strong>Destinations</strong> — Top 10 list, continent filter tabs (America / Oceania / Europe / Africa / Asia), destination profile page (Vienna) with Google Maps embed, safety icons, currency, visa link</li>
+                <li><strong>Community</strong> — content card grid with travel stories, community pillars, newsletter subscribe</li>
+              </ul>
+            </div>
+            <div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.4;padding-left:18px;color:#2b2b2b">
+                <li><strong>Planning</strong> — itinerary input form (destination, dates, people, occasion, budget, preferences, email) + full generated sample itinerary for Vienna (5 days, day-by-day), embedded YouTube video, tips section</li>
+                <li><strong>Recommendations</strong> — user submission form (place name, location, type, cost, description, date, photo upload) with live preview card</li>
+                <li><strong>Prepare</strong> — interactive to-do/packing checklist with add-item functionality</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- PHOTO SLOTS: Home, Destinations, Planning page screenshots, 3-up row -->
+          <div class="cs-img-row" style="--cols:3">
+            <div class="cs-img" style="--h:260px; background-image:url('./Imgs/Sola_landing.png')"></div>
+            <div class="cs-img" style="--h:260px; background-image:url('./Imgs/Sola_destination.png')"></div>
+            <div class="cs-img" style="--h:260px; background-image:url('./Imgs/Sola_comunity.png')"></div>
+          </div>
+          <div class="cs-img-caption">Home · Destinations · Community pages</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Reflection</div>
+          <div class="cs-heading">What SOLA taught me about designing for a specific audience</div>
+          <p class="cs-text">Building an entire website proposal solo — from affinity diagram through brand identity to working pages — forced me to make every decision intentional. I couldn't defer anything to "another team member." The colour palette had to carry emotional meaning, the information architecture had to reflect real user needs (not just logical categories), and the copy had to sound like SOLA, not like a generic travel site.</p>
+          <p class="cs-text">Designing for solo female travelers also made me think carefully about the difference between designing for confidence and designing for fear. The instinct in safety-focused content is to lead with warnings — but that positions the user as vulnerable. SOLA's design decision was to lead with empowerment and treat safety as practical preparation, not a reason not to go.</p>
+          <p class="cs-text">The planning page was the most technically interesting challenge: designing an input form that generates a structured, personalised itinerary required me to think about the logic behind the output as well as the interface — a useful bridge between UX design and product thinking.</p>
+        </div>
+      `
+    },
+    {
+      id: 'aqui-vivo',
+      title: 'Aquí Vivo — Neighbourhood Management App',
+      type: 'UX Research · UI Design · Branding · Web',
+      size: 'big', // cover recommended ~1200x1000px
+      cover: './Imgs/MIÉRCOLES 1_01_2020.png', // PASTE COVER IMAGE URL HERE — shows in the project grid tile
+      richContent: true,
+      content: `
+        <div class="cs-section">
+          <div class="cs-label">Overview</div>
+          <div class="cs-tags">
+            <span class="cs-tag">UX Research</span>
+            <span class="cs-tag">User Interviews</span>
+            <span class="cs-tag">Focus Group</span>
+            <span class="cs-tag">UI Design</span>
+            <span class="cs-tag">Branding</span>
+            <span class="cs-tag">Web Design</span>
+            <span class="cs-tag">PAP · ITESO · Guadalajara</span>
+          </div>
+          <div class="cs-overview-grid" style="margin-top:28px">
+            <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">UX Researcher, UI Designer & Brand Designer</div></div>
+            <div class="cs-stat"><div class="stat-label">Program</div><div class="stat-value">PAP — Business School, ITESO</div></div>
+            <div class="cs-stat"><div class="stat-label">Focus</div><div class="stat-value">Small/medium local business support</div></div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">The Problem</div>
+          <div class="cs-heading">Gated communities run on WhatsApp groups and paper notices — and it shows</div>
+          <p class="cs-text">Aquí Vivo was developed through ITESO's PAP program (Aplied Professional Practice), a university initiative connecting business school students with small and medium local enterprises in Guadalajara. The brief: design a tool to improve how gated communities ("cotos") and apartment complexes handle administration and neighbour communication.</p>
+          <p class="cs-text">Most cotos in Guadalajara are run entirely through WhatsApp groups, printed bulletins, and word of mouth. Administrators handle finances, maintenance requests, neighbourhood meetings, and emergencies with no centralised system — and existing apps like Condovive were already failing due to poor adoption and clunky data management.</p>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">My Contribution — Research</div>
+          <div class="cs-heading">In-depth interviews with administrators + a focus group with young residents</div>
+          <p class="cs-text">I conducted one-on-one interviews with 4 community administrators (ages 39–66, with 6 months to 4 years of experience managing their coto) and ran a focus group with 5 university-aged residents (23–25) who rent independently within gated communities — a demographic largely excluded from existing administration tools.</p>
+
+          <div class="cs-insights" style="margin-top:24px">
+            <div class="cs-insight-card">
+              <div class="insight-theme">👴 Administrators: overworked, under-tooled</div>
+              <div class="insight-desc">All 4 administrators rely on WhatsApp as their primary tool. One pays for "Condovive" but does the database work herself because the provider doesn't maintain it properly. None feel residents are fully satisfied with current communication.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🧑‍🎓 Young residents: disconnected entirely</div>
+              <div class="insight-desc">Most focus group participants had never attended a neighbourhood meeting and learned about coto business secondhand — through parents, landlords, or not at all. Several didn't know who their administrator was.</div>
+            </div>
+          </div>
+
+          <div class="cs-quote">
+            <p>I'm the alternate/youth representative for my coto, but I never go to the meetings — I was told it's just drama.</p>
+          </div>
+          <div class="cs-quote">
+            <p>Where I live, announcements are made at the nearest church. So if you're not religious or don't attend mass, you miss out on what's happening in the coto.</p>
+          </div>
+          <div class="cs-quote">
+            <p>I love how clear the finance section is — that always ends up being the biggest problem in our community.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <div class="cs-label">Key Research Findings</div>
+          <div class="cs-insights">
+            <div class="cs-insight-card">
+              <div class="insight-theme">💰 Finances are the #1 pain point</div>
+              <div class="insight-desc">Every administrator cited debt collection and tracking payments as their hardest task. Residents wanted clear visibility into who owes what — without confrontation.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">📵 Generational tech gap</div>
+              <div class="insight-desc">Several administrators noted that older residents struggle to install or use any app at all, while younger residents are completely disengaged from WhatsApp-based systems.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">🛡️ Safety features wanted</div>
+              <div class="insight-desc">Both groups independently asked for a panic button, suspicious activity alerts, and quick emergency-service dialling — none of which existed in current tools.</div>
+            </div>
+            <div class="cs-insight-card">
+              <div class="insight-theme">💬 Moderation matters</div>
+              <div class="insight-desc">Residents explicitly asked for the ability to restrict off-topic content (religious messages, chain forwards) — a recurring complaint about existing WhatsApp groups.</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">My Contribution — UI Design & Branding</div>
+          <div class="cs-heading">Full screen design, prototype, brand identity and website</div>
+          <p class="cs-text">Based on the research, I designed the complete UI for both user types — administrators and residents — covering finances, neighbourhood meetings, services booking, marketplace, vigilance/safety, chat, announcements, and emergency access. I also developed the Aquí Vivo brand identity (logo, colour system) and a companion website for onboarding and tutorials.</p>
+
+          <div class="cs-two-col" style="margin-top:24px">
+            <div>
+              <div class="cs-label" style="margin-bottom:10px">Administrator features</div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.2;padding-left:18px;color:#2b2b2b">
+                <li>Finance dashboard — account status, payment methods, payment history</li>
+                <li>Calendar with colour-coded events (meetings, garbage days, occupancy)</li>
+                <li>Meeting management — create topics, attach photos, justify agenda items</li>
+                <li>Announcements — publish with title, photo, and text</li>
+                <li>Common area booking with calendar availability view</li>
+                <li>Service directory (gardening, mechanics, household help)</li>
+                <li>Group + private chats with residents</li>
+                <li>One-tap emergency dial (911, local police, fire)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="cs-label" style="margin-bottom:10px">Resident features</div>
+              <ul style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;line-height:2.2;padding-left:18px;color:#2b2b2b">
+                <li>Personal profile with vehicles, pets, household members</li>
+                <li>Marketplace — sell items/services to neighbours or externally</li>
+                <li>Vigilance — report concerns, rate security, leave feedback</li>
+                <li>Activities — community sports and classes with schedules</li>
+                <li>Evaluate — rate the administrator and the app itself</li>
+                <li>Same chat, calendar, finance and emergency access as admins</li>
+                <li>Notification preferences (all / private only / none)</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- PHOTO SLOTS: finance, meetings, services screens, 3-up row -->
+          <div class="cs-img-row" style="--cols:3">
+            <div class="cs-img" style="--h:280px; background-image:url('./Imgs/MIÉRCOLES- 15_01_2020 _insta.png')"></div>
+            <div class="cs-img" style="--h:280px; background-image:url('./Imgs/Aqui_vivo_screens-01.png')"></div>
+            <div class="cs-img" style="--h:280px; background-image:url('./Imgs/Aqui_vivo_screens-02.png')"></div>
+          </div>
+          <div class="cs-img-caption">Finance dashboard · Meetings · Services / marketplace</div>
+
+          <!-- PHOTO SLOT: logo / brand identity -->
+          <div class="cs-img" style="--h:280px; background-image:url('./Imgs/Aqui_vivo_branding.png')"></div>
+          <div class="cs-img-caption">Aquí Vivo logo and brand identity</div>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Validation</div>
+          <div class="cs-heading">Tested the actual screens with the focus group</div>
+          <p class="cs-text">After the initial research phase, I presented the designed screens directly to the resident focus group to validate direction before finalising the UI. The reaction was strongly positive — every participant said they would use the app, with the finance clarity and safety features cited as the strongest value propositions.</p>
+          <div class="cs-quote">
+            <p>It would help communicate quickly with people who owe money, without having to listen to excuses. I genuinely see this as useful.</p>
+          </div>
+          <p class="cs-text">The same validation surfaced real adoption barriers worth documenting honestly: several residents noted that older, less tech-comfortable neighbours would resist any app-based system, and that incentives (a discount, a tangible benefit) might be necessary to drive adoption in established communities.</p>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Prototype</div>
+          <div class="cs-heading">Full Figma prototype — admin and resident flows</div>
+          <a class="cs-figma-btn" href="https://www.figma.com/design/YCljjZnJS5j7Iq4LL3d6RL/Aqui-vivo?node-id=0-1&t=ED8Y47271q5IfWil-1" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 28.5A9.5 9.5 0 1 1 28.5 19 9.5 9.5 0 0 1 19 28.5Z" fill="#1ABCFE"/><path d="M9.5 57A9.5 9.5 0 0 1 9.5 38H19V57Z" fill="#0ACF83"/><path d="M0 19A9.5 9.5 0 0 1 9.5 9.5H19V28.5H9.5A9.5 9.5 0 0 1 0 19Z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 1 9.5 0H19V19H9.5A9.5 9.5 0 0 1 0 9.5Z" fill="#F24E1E"/><path d="M19 0H28.5A9.5 9.5 0 0 1 28.5 19H19Z" fill="#FF7262"/></svg>
+            View Aquí Vivo in Figma
+          </a>
+        </div>
+
+        <hr class="cs-divider">
+
+        <div class="cs-section">
+          <div class="cs-label">Reflection</div>
+          <div class="cs-heading">What working with a real local business taught me</div>
+          <p class="cs-text">This was my first UX project conducted with a genuine external stakeholder rather than a fictional brief — and the research immediately surfaced something a brief alone never would have: two completely different user realities. Administrators wanted efficiency and accountability tools. Young residents wanted to feel included in a system they'd been structurally excluded from. Designing one app that served both required constant negotiation between those needs.</p>
+          <p class="cs-text">The honest findings around adoption barriers — older residents struggling with any app, the "who pays if I move out" logistics, distrust of administrators being "too modern" — were uncomfortable but important. A good research process surfaces reasons your solution might fail, not just validation that it will succeed. I learned to treat that friction as design information rather than something to downplay in the final presentation.</p>
+        </div>
+      `
+    }
+  ];
+
+  const grid = document.getElementById('project-grid');
+
+  projects.forEach((p) => {
+    const card = document.createElement('button');
+    card.className = `project-card ${p.size}`;
+    card.setAttribute('aria-label', `Open project: ${p.title}`);
+
+    const thumb = document.createElement('div');
+    thumb.className = 'thumb';
+    if (p.cover) thumb.style.backgroundImage = `url('${p.cover}')`;
+
+    const label = document.createElement('div');
+    label.className = 'label';
+    label.textContent = `${p.title} — ${p.type}`;
+
+    card.appendChild(thumb);
+    card.appendChild(label);
+    card.addEventListener('click', () => openProject(p.id));
+    grid.appendChild(card);
+  });
+
+  const projectSection = document.getElementById('project-section');
+  const projectDetail = document.getElementById('project-detail');
+  const detailInner = document.getElementById('detail-inner');
+
+  function openProject(id) {
+    const p = projects.find((proj) => proj.id === id);
+    if (!p) return;
+
+    const heroAlt = p.coverAlt || `${p.title} — cover image`;
+    const heroImg = p.cover ? `<img src="${p.cover}" alt="${heroAlt}" loading="lazy">` : '';
+
+    if (p.richContent) {
+      detailInner.innerHTML = `
+        <button class="back-link" id="back-btn">&larr; Back to all projects</button>
+        <div class="detail-title">${p.title}</div>
+        <div class="detail-meta">${p.type}</div>
+        <div class="detail-hero">${heroImg}</div>
+        ${p.content}
+      `;
+    } else {
+      detailInner.innerHTML = `
+        <button class="back-link" id="back-btn">&larr; Back to all projects</button>
+        <div class="detail-title">${p.title}</div>
+        <div class="detail-meta">${p.type}</div>
+        <div class="detail-hero">${heroImg}</div>
+        <p class="detail-body">${p.description || ''}</p>
+        <div class="detail-gallery">
+          ${(p.gallery && p.gallery.length ? p.gallery : ['', '', '', ''])
+            .map((src) => `<div>${src ? `<img src="${src}" alt="${p.title} detail" loading="lazy">` : ''}</div>`)
+            .join('')}
+        </div>
+      `;
+    }
+
+    projectSection.classList.remove('open');
+    projectBtn.setAttribute('aria-expanded', 'false');
+    projectDetail.classList.add('open');
+
+    document.getElementById('back-btn').addEventListener('click', closeProjectDetail);
+
+    setTimeout(() => {
+      projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+
+  function closeProjectDetail() {
+    projectDetail.classList.remove('open');
+    projectSection.classList.add('open');
+    projectBtn.setAttribute('aria-expanded', 'true');
+    setTimeout(() => {
+      projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+
+  const projectBtn = document.getElementById('project-btn');
+
+  projectBtn.addEventListener('click', () => {
+    const opening = !projectSection.classList.contains('open');
+    projectSection.classList.toggle('open');
+    projectBtn.setAttribute('aria-expanded', opening);
+    if (!opening) {
+      projectDetail.classList.remove('open');
+    }
+    if (opening) {
+      setTimeout(() => {
+        projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  });
+
+  projectBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      projectBtn.click();
+    }
+  });
+
+  const aboutBtn = document.getElementById('about-btn');
+  const aboutSection = document.getElementById('about-section');
+
+  aboutBtn.addEventListener('click', () => {
+    const opening = !aboutSection.classList.contains('open');
+    aboutSection.classList.toggle('open');
+    aboutBtn.setAttribute('aria-expanded', opening);
+    if (opening) {
+      setTimeout(() => {
+        aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
+  });
+
+  aboutBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      aboutBtn.click();
+    }
+  });
+</script>
+
+</body>
+</html>
