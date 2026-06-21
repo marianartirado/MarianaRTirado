@@ -44,8 +44,9 @@
 
   nav a {
     font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 26px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     color: var(--ink);
     text-decoration: none;
   }
@@ -767,9 +768,11 @@
 
       <div class="about-row">
         <h2>About</h2>
-        <p>Mariana Ramirez Tirado is a Graphic, UI &amp; UX designer based in Brisbane, QLD, currently completing a Master's in Interaction Design at the University of Queensland.</p>
-        <p>Her background spans branding, editorial and packaging design, digital illustration, and UX research, built across roles in Mexico and Australia, from senior design positions at agencies to hands-on internships in user testing and product design.</p>
-        <p>She's fluent in English and Spanish, comfortable in Portuguese, and works confidently across the Adobe Suite, Microsoft Office, and core UX methods including user research, wireframing, and journey mapping.</p>
+        <div class="about-text">
+          <p>Mariana Ramirez Tirado is a Graphic, UI &amp; UX designer based in Brisbane, QLD, currently completing a Master's in Interaction Design at the University of Queensland.</p>
+          <p>Her background spans branding, editorial and packaging design, digital illustration, and UX research, built across roles in Mexico and Australia, from senior design positions at agencies to hands-on internships in user testing and product design.</p>
+          <p>She's fluent in English and Spanish, comfortable in Portuguese, and works confidently across the Adobe Suite, Microsoft Office, and core UX methods including user research, wireframing, and journey mapping.</p>
+        </div>
       </div>
 
       <div class="resume-block">
@@ -1830,6 +1833,27 @@
   const projectDetail = document.getElementById('project-detail');
   const detailInner = document.getElementById('detail-inner');
 
+  // Both #project-section and #project-detail expand/collapse via a
+  // max-height transition (see CSS, 0.6s). Scrolling before that transition
+  // finishes means the target position is computed against a mid-animation
+  // layout, so the page ends up scrolled to the wrong spot. This waits for
+  // the transition to actually finish (with a safety-net timeout) before
+  // running the scroll.
+  function whenExpanded(el, callback) {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      el.removeEventListener('transitionend', onEnd);
+      callback();
+    };
+    const onEnd = (e) => {
+      if (e.target === el && e.propertyName === 'max-height') finish();
+    };
+    el.addEventListener('transitionend', onEnd);
+    setTimeout(finish, 700);
+  }
+
   function openProject(id) {
     const p = projects.find((proj) => proj.id === id);
     if (!p) return;
@@ -1866,18 +1890,18 @@
 
     document.getElementById('back-btn').addEventListener('click', closeProjectDetail);
 
-    setTimeout(() => {
+    whenExpanded(projectDetail, () => {
       projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
+    });
   }
 
   function closeProjectDetail() {
     projectDetail.classList.remove('open');
     projectSection.classList.add('open');
     projectBtn.setAttribute('aria-expanded', 'true');
-    setTimeout(() => {
+    whenExpanded(projectSection, () => {
       projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
+    });
   }
 
   const projectBtn = document.getElementById('project-btn');
@@ -1890,9 +1914,9 @@
       projectDetail.classList.remove('open');
     }
     if (opening) {
-      setTimeout(() => {
+      whenExpanded(projectSection, () => {
         projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
+      });
     }
   });
 
@@ -1911,9 +1935,9 @@
     aboutSection.classList.toggle('open');
     aboutBtn.setAttribute('aria-expanded', opening);
     if (opening) {
-      setTimeout(() => {
+      whenExpanded(aboutSection, () => {
         aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
+      });
     }
   });
 
