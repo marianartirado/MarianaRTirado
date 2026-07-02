@@ -350,6 +350,19 @@
     font-size: 16px;
   }
 
+  .project-card .card-summary {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 500;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: #555;
+    margin-top: 4px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   /* mixed bento sizing, matches the wireframe rhythm */
   .project-card.tall { grid-row: span 3; }
   .project-card.wide { grid-column: span 2; grid-row: span 2; }
@@ -959,6 +972,7 @@
       id: 'medfile',
       title: 'MedFile — Digital Health Records App',
       type: 'UX Research · Interaction Design · Capstone',
+      summary: 'A redesign of Australia\'s prescription management system, built on stakeholder research and an 8-person focus group, with an emergency-summary feature surfacing allergies and high-risk medications at a glance.',
       size: 'big', // cover recommended ~1200x1000px
       cover: './Imgs/Medfile_cover.png',
       richContent: true,
@@ -974,6 +988,7 @@
             <span class="cs-tag">Digital Health</span>
             <span class="cs-tag">DECO3800 · UQ · 2026</span>
           </div>
+          <p class="cs-text" style="margin-top:20px">MedFile redesigns Australia's prescription management system to close gaps in medication safety and information access. Working from a real stakeholder map and an 8-participant focus group, our team proposed a unified medication view and an emergency-summary card that surfaces allergies and high-risk medications instantly.</p>
           <div class="cs-overview-grid" style="margin-top:28px">
             <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">UX Researcher & Designer</div></div>
             <div class="cs-stat"><div class="stat-label">Team</div><div class="stat-value">6 people — Design, Marketing, Engineering</div></div>
@@ -1113,6 +1128,7 @@
       id: 'mazerunner',
       title: 'Keep It Rollin\' — MazeRunner',
       type: 'Interaction Design · Physical Computing · DECO7385 · UQ 2026',
+      summary: 'A cooperative physical maze game where two players must hold hands to complete the circuit that controls the board — a screen-free interaction designed entirely through object and mechanics.',
       size: 'wide', // cover recommended ~1200x600px
       cover: './Imgs/exhibition3.jpg',
       richContent: true,
@@ -1127,6 +1143,7 @@
             <span class="cs-tag">Exhibition</span>
             <span class="cs-tag">DECO7385 · UQ · 2026</span>
           </div>
+          <p class="cs-text" style="margin-top:20px">Keep It Rollin' is a cooperative physical maze game: two players hold hands to complete an electrical circuit, and only while connected can they tilt the board together to guide a ball to the goal. The entire interaction is communicated through the object itself, with no screens or instructions.</p>
           <div class="cs-overview-grid" style="margin-top:28px">
             <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">Interaction Designer</div></div>
             <div class="cs-stat"><div class="stat-label">Team</div><div class="stat-value">Mixed — Design & Engineering</div></div>
@@ -1218,6 +1235,7 @@
       id: 'wildtales',
       title: 'WildTales — Children\'s Outdoor Adventure App',
       type: 'UX / UI Design · Illustration · Character Design',
+      summary: 'A low-connectivity outdoor adventure app for kids aged 5–10, designed to encourage nature play without creating screen dependency, including custom character illustration and a working iOS prototype.',
       size: 'big', // cover recommended ~1200x1000px
       cover: './Imgs/Wildtale_cover.png', // PASTE COVER IMAGE URL HERE — shows in the project grid tile
       richContent: true,
@@ -1233,6 +1251,7 @@
             <span class="cs-tag">iOS · Swift · Figma</span>
             <span class="cs-tag">Team of 6 · UQ 2025</span>
           </div>
+          <p class="cs-text" style="margin-top:20px">WildTales is a low-connectivity outdoor adventure app that encourages children aged 5–10 to play outside, designed to enhance — rather than replace — time away from screens. I led the UX design and original character illustration across a Figma prototype and a working iOS build.</p>
           <div class="cs-overview-grid" style="margin-top:28px">
             <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">UX Designer & Lead Illustrator</div></div>
             <div class="cs-stat"><div class="stat-label">Team</div><div class="stat-value">3 Designers + 3 Developers</div></div>
@@ -1431,6 +1450,7 @@
       id: 'sola',
       title: 'SOLA — Solo Female Travelers Website',
       type: 'UX / Web Design · Brand Identity · Information Architecture',
+      summary: 'A dedicated website and brand for solo female travelers, built around safety-focused destination info, community connection, and practical planning tools — designed solo from persona through working prototype.',
       size: 'wide', // cover recommended ~1200x600px
       cover: './Imgs/sola_cover.png', // PASTE COVER IMAGE URL HERE — shows in the project grid tile
       richContent: true,
@@ -1447,6 +1467,7 @@
             <span class="cs-tag">Accessibility</span>
             <span class="cs-tag">APC Diploma · 2024</span>
           </div>
+          <p class="cs-text" style="margin-top:20px">SOLA is a website concept and brand identity built specifically for solo female travelers — combining safety-focused destination content, community connection, and practical planning tools that generic travel sites don't address. Designed solo, from persona research through information architecture to a working prototype.</p>
           <div class="cs-overview-grid" style="margin-top:28px">
             <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">Solo UX & Web Designer</div></div>
             <div class="cs-stat"><div class="stat-label">Deliverable</div><div class="stat-value">Full website proposal + working prototype</div></div>
@@ -1656,6 +1677,7 @@
       id: 'aqui-vivo',
       title: 'Aquí Vivo — Neighbourhood Management App',
       type: 'UX Research · UI Design · Branding · Web',
+      summary: 'A full UI and brand identity for a real neighbourhood-management business, covering finances, bookings, safety and community features for two distinct user types — administrators and residents.',
       size: 'big', // cover recommended ~1200x1000px
       cover: './Imgs/aquivivo_cover.png', // PASTE COVER IMAGE URL HERE — shows in the project grid tile
       richContent: true,
@@ -1671,6 +1693,7 @@
             <span class="cs-tag">Web Design</span>
             <span class="cs-tag">PAP · ITESO · Guadalajara</span>
           </div>
+          <p class="cs-text" style="margin-top:20px">Aquí Vivo is a neighbourhood-management app and brand built for a real local business, replacing WhatsApp groups and paper notices with one platform for finances, bookings, safety and communication — designed separately for administrators and residents.</p>
           <div class="cs-overview-grid" style="margin-top:28px">
             <div class="cs-stat"><div class="stat-label">My Role</div><div class="stat-value">UX Researcher, UI Designer & Brand Designer</div></div>
             <div class="cs-stat"><div class="stat-label">Program</div><div class="stat-value">PAP — Business School, ITESO</div></div>
@@ -1838,6 +1861,14 @@
 
     card.appendChild(thumb);
     card.appendChild(label);
+
+    if (p.summary) {
+      const summary = document.createElement('div');
+      summary.className = 'card-summary';
+      summary.textContent = p.summary;
+      card.appendChild(summary);
+    }
+
     card.addEventListener('click', () => openProject(p.id));
     grid.appendChild(card);
   });
